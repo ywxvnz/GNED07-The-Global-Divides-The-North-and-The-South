@@ -1,0 +1,1 @@
+# GNED07-The-Global-Divides-The-North-and-The-South
