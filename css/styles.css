@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    Main Stylesheet - Custom Layouts and UI Components
    Extends variables from assets/styles/theme.css
    ========================================================================== */
@@ -28,7 +28,7 @@ body {
 .navbar-glass {
     max-width: 600px;
     margin: 0 auto;
-    background: var(--color-glass-nav);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(207, 226, 243, 0.72) 100%);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--color-glass-border);
@@ -339,10 +339,12 @@ body {
 }
 
 .major-lenses-card:hover {
-  transform: translateY(-8px);
+  position: relative;
+  z-index: 2;
+  transform: translateY(-14px) scale(1.02);
   background-color: #1c2d5a; /* High contrast dark background */
   border-color: #1c2d5a;
-  box-shadow: 0 10px 20px rgba(28, 45, 90, 0.12);
+  box-shadow: 0 24px 50px rgba(28, 45, 90, 0.22);
 }
 
 .major-lenses-card:hover .major-lenses-card-number {
@@ -478,7 +480,7 @@ body {
 }
 
 .realism-detail-img-col {
-  background: linear-gradient(to right, rgba(40, 54, 99, 0.3) 0%, transparent 100%), url('realism.png');
+  background: linear-gradient(to right, rgba(40, 54, 99, 0.3) 0%, transparent 100%), url('../assets/images/realism.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -815,7 +817,6 @@ body {
   .major-lenses-nav a {
     width: auto;
   }
-}
 
   .footer-right-col {
     border-left: none;
@@ -967,7 +968,143 @@ body {
     margin-top: 15px;
 }
 
-/* Responsive Footer Tweaks */
+/* Page Navigation Component Styles */
+.page-navigation {
+    background: linear-gradient(180deg, var(--color-bg-pastel-blue), #ffffff);
+    padding: 48px 0;
+}
+
+.page-navigation-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 18px;
+    align-items: stretch;
+}
+
+.page-nav-button,
+.page-nav-topics {
+    text-decoration: none;
+    transition: transform 0.28s ease, box-shadow 0.28s ease, background-color 0.28s ease;
+}
+
+.page-nav-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 96px;
+    padding: 20px 24px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(28, 46, 90, 0.12);
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(28, 46, 90, 0.08);
+    color: var(--color-primary-navy);
+}
+
+.page-nav-button-next {
+    text-align: right;
+}
+
+.page-nav-label {
+    font-family: var(--font-subtitle);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent-red);
+    margin-bottom: 6px;
+}
+
+.page-nav-title {
+    font-family: var(--font-title);
+    font-size: clamp(1.05rem, 2vw, 1.45rem);
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.page-nav-button:not(.page-nav-button-disabled):hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 42px rgba(28, 46, 90, 0.14);
+    background: #ffffff;
+    color: var(--color-primary-navy);
+}
+
+.page-nav-button-disabled {
+    opacity: 0.48;
+    cursor: not-allowed;
+}
+
+.page-nav-topics {
+    align-self: center;
+    justify-self: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    min-height: 96px;
+    padding: 16px 22px;
+    border: none;
+    border-radius: 14px;
+    background: var(--color-accent-red);
+    box-shadow: 0 12px 30px rgba(211, 78, 54, 0.24);
+    color: #ffffff;
+    font-family: var(--font-subtitle);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.page-nav-topics:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 36px rgba(28, 46, 90, 0.1);
+    background: var(--color-accent-red-hover);
+    color: #ffffff;
+}
+
+/* Scroll to Top Button Component */
+.scroll-to-top-button {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1100;
+    width: 52px;
+    height: 52px;
+    border: 1px solid rgba(28, 46, 90, 0.14);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--color-primary-navy);
+    box-shadow: 0 14px 34px rgba(28, 46, 90, 0.16);
+    font-family: var(--font-subtitle);
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(14px) scale(0.94);
+    transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.scroll-to-top-button.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+.scroll-to-top-button:hover {
+    background: var(--color-accent-red);
+    color: #ffffff;
+    transform: translateY(-4px) scale(1.03);
+}
+
+.scroll-to-top-button:focus-visible {
+    outline: 3px solid rgba(211, 78, 54, 0.35);
+    outline-offset: 4px;
+}
+
+/* Responsive Footer and Navigation Tweaks */
 @media (max-width: 768px) {
     .footer-separator {
         width: 100%;
@@ -980,5 +1117,23 @@ body {
     }
     .footer-credit {
         margin-top: 10px;
+    }
+    .scroll-to-top-button {
+        right: 16px;
+        bottom: 16px;
+        width: 46px;
+        height: 46px;
+        font-size: 1.15rem;
+    }
+    .page-navigation-inner {
+        grid-template-columns: 1fr;
+    }
+    .page-nav-button,
+    .page-nav-button-next {
+        text-align: left;
+    }
+    .page-nav-topics {
+        width: 100%;
+        order: -1;
     }
 }
