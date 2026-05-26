@@ -9,6 +9,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     setupDropdownHover();
     setupSmoothScroll();
+    setupScrollReveal();
 });
 
 /**
@@ -78,4 +79,33 @@ function setupSmoothScroll() {
             }
         });
     });
+}
+
+/**
+ * Reveal elements as they enter the viewport.
+ * Matches the animation approach used by the Major Lenses pages.
+ */
+function setupScrollReveal() {
+    const revealElements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right');
+    if (!revealElements.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+        revealElements.forEach(element => element.classList.add('reveal-visible'));
+        return;
+    }
+
+    const revealOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.12
+    });
+
+    revealElements.forEach(element => revealOnScroll.observe(element));
 }

@@ -154,6 +154,49 @@ function renderPageNavigation(rootPath, isExplorePage) {
             </div>
         </nav>
     `);
+
+    applyPageNavigationBackground(footerTarget.previousElementSibling);
+}
+
+function applyPageNavigationBackground(navigation) {
+    if (!navigation) return;
+
+    const source = findBackgroundSource(navigation.previousElementSibling);
+    if (!source) return;
+
+    const sourceStyle = window.getComputedStyle(source);
+    if (sourceStyle.backgroundImage && sourceStyle.backgroundImage !== 'none') {
+        navigation.style.backgroundImage = sourceStyle.backgroundImage;
+        navigation.style.backgroundSize = sourceStyle.backgroundSize;
+        navigation.style.backgroundPosition = sourceStyle.backgroundPosition;
+        navigation.style.backgroundRepeat = sourceStyle.backgroundRepeat;
+    }
+
+    if (!isTransparentColor(sourceStyle.backgroundColor)) {
+        navigation.style.backgroundColor = sourceStyle.backgroundColor;
+    }
+}
+
+function findBackgroundSource(element) {
+    if (!element) return null;
+
+    const style = window.getComputedStyle(element);
+    const hasBackgroundImage = style.backgroundImage && style.backgroundImage !== 'none';
+    const hasBackgroundColor = !isTransparentColor(style.backgroundColor);
+
+    if (hasBackgroundImage || hasBackgroundColor) return element;
+
+    const children = Array.from(element.children).reverse();
+    for (const child of children) {
+        const childSource = findBackgroundSource(child);
+        if (childSource) return childSource;
+    }
+
+    return null;
+}
+
+function isTransparentColor(color) {
+    return !color || color === 'transparent' || color === 'rgba(0, 0, 0, 0)' || color.endsWith(', 0)');
 }
 
 function renderSiteFooter(rootPath, isHomePage, isExplorePage) {
@@ -189,25 +232,88 @@ function renderScrollToTopButton() {
     if (document.querySelector('.scroll-to-top-button')) return;
 
     document.body.insertAdjacentHTML('beforeend', `
+        <span class="scroll-bottom-sentinel" aria-hidden="true"></span>
         <button class="scroll-to-top-button" type="button" aria-label="Back to top">
             <span aria-hidden="true">&uarr;</span>
         </button>
     `);
 
     const button = document.querySelector('.scroll-to-top-button');
-    const toggleButton = () => {
-        const distanceFromBottom = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
-        button.classList.toggle('is-visible', distanceFromBottom <= 260 && window.scrollY > 240);
+    const sentinel = document.querySelector('.scroll-bottom-sentinel');
+    let isBottomVisible = false;
+
+    const getScrollMetrics = () => {
+        const documentElement = document.documentElement;
+        const body = document.body;
+        const scrollTop = Math.max(window.scrollY, documentElement.scrollTop, body.scrollTop);
+        const scrollHeight = Math.max(documentElement.scrollHeight, body.scrollHeight);
+        const viewportHeight = window.innerHeight || documentElement.clientHeight;
+
+        return {
+            distanceFromBottom: scrollHeight - (scrollTop + viewportHeight),
+            scrollTop
+        };
     };
 
-    button.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+    const setButtonVisibility = isVisible => {
+        button.classList.toggle('is-visible', isVisible);
+        button.style.opacity = isVisible ? '1' : '0';
+        button.style.pointerEvents = isVisible ? 'auto' : 'none';
+        button.style.transform = isVisible ? 'translateY(0) scale(1)' : 'translateY(14px) scale(0.94)';
+    };
+
+    const toggleButton = () => {
+        const { distanceFromBottom, scrollTop } = getScrollMetrics();
+        const isAtBottom = distanceFromBottom <= 80;
+
+        setButtonVisibility((isAtBottom || isBottomVisible) && scrollTop > 0);
+    };
+
+    button.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        try {
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+        } catch {
+            window.scrollTo(0, 0);
+        }
+
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+
+        if (document.body.scrollTo) {
+            document.body.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
     });
 
     window.addEventListener('scroll', toggleButton, { passive: true });
+    document.body.addEventListener('scroll', toggleButton, { passive: true });
     window.addEventListener('resize', toggleButton);
+    window.addEventListener('load', toggleButton);
+
+    if ('IntersectionObserver' in window && sentinel) {
+        const bottomObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                isBottomVisible = entry.isIntersecting;
+                toggleButton();
+            });
+        }, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0
+        });
+
+        bottomObserver.observe(sentinel);
+    }
+
     toggleButton();
 }

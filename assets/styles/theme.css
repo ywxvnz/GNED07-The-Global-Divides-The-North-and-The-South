@@ -10,10 +10,10 @@
 :root {
     /* Color Palette */
     --color-primary-navy: #1C2E5A;          /* Deep rich navy for footer/nav elements */
-    --color-bg-pastel-blue: #CFE2F3;        /* Soft pastel blue for card section background */
+    --color-bg-pastel-blue: #a8c8e6;        /* Soft pastel blue for card section background */
     --color-accent-red: #D34E36;            /* Accent red/coral for line dividers & buttons */
     --color-accent-red-hover: #b53b24;      /* Slightly darker red for button hovers */
-    --color-glass-nav: rgba(207, 226, 243, 0.85); /* Semi-transparent blue for top navbar */
+    --color-glass-nav: rgba(168, 200, 230, 0.85); /* Semi-transparent blue for top navbar */
     --color-glass-border: rgba(255, 255, 255, 0.4);
     --color-text-dark: #1f2937;              /* Near black for body text readability */
     --color-text-muted: #6b7280;            /* Gray for subheadings and secondary texts */
