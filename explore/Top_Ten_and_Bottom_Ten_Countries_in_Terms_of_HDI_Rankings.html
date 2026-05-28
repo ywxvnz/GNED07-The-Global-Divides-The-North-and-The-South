@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Ten and Bottom Ten Countries in Terms of HDI Rankings - Global Divides</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Custom Style References -->
+    <link rel="stylesheet" href="../css/index.css">
+    <style>
+        /* HDI Rankings Table & Comparison Styles */
+        .hdi-comparison-container {
+            gap: 2rem;
+        }
+
+        .hdi-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hdi-column-title {
+            font-family: var(--font-title);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            color: var(--color-primary-navy);
+            text-align: center;
+            margin-bottom: 24px;
+            position: relative;
+            padding-bottom: 16px;
+        }
+
+        /* Color coding for top/bottom regions */
+        .hdi-column-title.top-hdi::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #2ecc71;
+            border-radius: 2px;
+        }
+
+        .hdi-column-title.bottom-hdi::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #e74c3c;
+            border-radius: 2px;
+        }
+
+        .hdi-ranking-table {
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(28, 46, 90, 0.06);
+            transition: var(--transition-smooth);
+        }
+
+        .hdi-ranking-table:hover {
+            box-shadow: 0 12px 32px rgba(28, 46, 90, 0.1);
+        }
+
+        .hdi-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .hdi-table {
+            width: 100%;
+            margin-bottom: 0;
+            border-collapse: collapse;
+            font-family: var(--font-body);
+        }
+
+        .hdi-table thead {
+            background: linear-gradient(135deg, rgba(168, 200, 230, 0.3), rgba(28, 46, 90, 0.08));
+            border-bottom: 2px solid #e0e7f1;
+        }
+
+        .hdi-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--color-primary-navy);
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .hdi-table tbody tr {
+            border-bottom: 1px solid #f0f4f8;
+            transition: background-color 0.25s ease;
+        }
+
+        .hdi-table tbody tr:hover {
+            background-color: #f8fbfd;
+        }
+
+        .hdi-table td {
+            padding: 14px 16px;
+            color: var(--color-text-dark);
+            font-size: 0.95rem;
+        }
+
+        .hdi-rank-number {
+            font-weight: 700;
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            color: var(--color-primary-navy);
+            min-width: 30px;
+        }
+
+        .hdi-country-name {
+            font-weight: 600;
+            color: var(--color-primary-navy);
+        }
+
+        .hdi-score {
+            font-weight: 700;
+            color: var(--color-accent-red);
+        }
+
+        .hdi-score-bar {
+            display: inline-block;
+            height: 6px;
+            background: linear-gradient(to right, #e74c3c, #2ecc71);
+            border-radius: 3px;
+            margin-left: 8px;
+            min-width: 50px;
+        }
+
+        /* Top HDI specific coloring - Green accent */
+        .hdi-column.top-hdi .hdi-score {
+            color: #27ae60;
+        }
+
+        .hdi-column.top-hdi .hdi-rank-number {
+            color: #27ae60;
+        }
+
+        /* Bottom HDI specific coloring - Red accent */
+        .hdi-column.bottom-hdi .hdi-score {
+            color: #c0392b;
+        }
+
+        .hdi-column.bottom-hdi .hdi-rank-number {
+            color: #c0392b;
+        }
+
+        /* Key Components Bar */
+        .hdi-components-section {
+            background: linear-gradient(135deg, rgba(168, 200, 230, 0.2), rgba(210, 180, 140, 0.08));
+            border-radius: 12px;
+            padding: 32px;
+            margin: 40px 0;
+            border-left: 5px solid var(--color-accent-red);
+        }
+
+        .hdi-component-item {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .hdi-component-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .hdi-component-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: var(--color-accent-red);
+            border-radius: 50%;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+
+        .hdi-component-text h4 {
+            font-family: var(--font-subtitle);
+            font-weight: 700;
+            color: var(--color-primary-navy);
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+
+        .hdi-component-text p {
+            font-size: 0.95rem;
+            color: var(--color-text-dark);
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hdi-comparison-container {
+                flex-direction: column;
+            }
+
+            .hdi-table th,
+            .hdi-table td {
+                padding: 10px 8px;
+                font-size: 0.85rem;
+            }
+
+            .hdi-rank-number {
+                min-width: 24px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar-glass-container">
+        <!-- <nav class="navbar navbar-expand-lg navbar-glass">
+            <div class="container-fluid justify-content-center">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
+                    <ul class="navbar-nav gap-2">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html#about-section">About</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Explore
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="topics.html">Topics</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="../index.html">The Global Divides</a></li>
+                                <li><a class="dropdown-item" href="Conceptualizing_Global_South.html">Conceptualizing the Global South</a></li>
+                                <li><a class="dropdown-item" href="Third_World_versus_Global_South.html">Third World versus Global South</a></li>
+                                <li><a class="dropdown-item" href="The_North-South_Divide.html">The North-South Divide</a></li>
+                                <li><a class="dropdown-item" href="Top_Ten_and_Bottom_Ten_Countries_in_Terms_of_HDI_Rankings.html">Top Ten and Bottom Ten Countries in Terms of HDI Rankings</a></li>
+                                <li><a class="dropdown-item" href="Brandt_Line_and_Structural_Inequalities.html">Brandt Line and Structural Inequalities</a></li>
+                                <li><a class="dropdown-item" href="Major_Lenses_of_Global_Relations.html">Major Lenses of Global Relations</a></li>
+                                <li><a class="dropdown-item" href="Major_Lenses_of_International_Relations.html">Major Lenses of International Relations</a></li>
+                                <li><a class="dropdown-item" href="Conclusion.html">Conclusion</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav> -->
+    </div>
+
+    <!-- Hero Section: HDI Rankings Title -->
+    <header class="hero-section" style="min-height: 62vh;">
+        <div class="hero-overlay"></div>
+        <div class="hero-content scroll-reveal">
+            <h1 class="hero-title">HDI RANKINGS</h1>
+            <div class="hero-divider"></div>
+            <p class="hero-subtitle">Global Quality of Life Comparison</p>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="content-section">
+        <div class="container">
+            
+            <!-- Introduction: What is HDI? -->
+            <div class="row mb-5 scroll-reveal">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="feature-title">Understanding the Human Development Index</h2>
+                    <div class="feature-body">
+                        <p>The Human Development Index (HDI) is a composite statistic used by the United Nations to rank countries into four tiers of human development. It measures a country's achievement in three key dimensions:</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HDI Components Section -->
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto scroll-reveal">
+                    <div class="hdi-components-section">
+                        <h3 class="feature-title mb-4" style="margin-top: 0;">The Three Dimensions of HDI</h3>
+                        
+                        <div class="hdi-component-item">
+                            <div class="hdi-component-icon">📚</div>
+                            <div class="hdi-component-text">
+                                <h4>Education</h4>
+                                <p>Measured by mean years of schooling (education received) and expected years of schooling (years expected in future). Education enables individuals to develop skills and capabilities.</p>
+                            </div>
+                        </div>
+
+                        <div class="hdi-component-item">
+                            <div class="hdi-component-icon">❤️</div>
+                            <div class="hdi-component-text">
+                                <h4>Health & Longevity</h4>
+                                <p>Measured by life expectancy at birth. This reflects the overall health conditions, access to healthcare, nutrition, and living standards in a country.</p>
+                            </div>
+                        </div>
+
+                        <div class="hdi-component-item">
+                            <div class="hdi-component-icon">💰</div>
+                            <div class="hdi-component-text">
+                                <h4>Standard of Living</h4>
+                                <p>Measured by Gross National Income (GNI) per capita. This reflects economic prosperity and purchasing power of citizens to access goods and services.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HDI Rankings Comparison: Top 10 and Bottom 10 -->
+            <div class="row scroll-reveal">
+                <div class="col-lg-10 mx-auto">
+                    <div class="hdi-comparison-container d-flex">
+                        
+                        <!-- TOP 10 HDI COUNTRIES -->
+                        <div class="hdi-column top-hdi flex-grow-1">
+                            <h3 class="hdi-column-title top-hdi">Top 10 Countries</h3>
+                            <div class="hdi-ranking-table">
+                                <div class="hdi-table-wrapper">
+                                    <table class="hdi-table">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 50px;">Rank</th>
+                                                <th style="width: auto;">Country</th>
+                                                <th style="width: 80px; text-align: right;">HDI</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="hdi-rank-number">1</td>
+                                                <td class="hdi-country-name">Switzerland</td>
+                                                <td class="hdi-score" style="text-align: right;">0.962</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">2</td>
+                                                <td class="hdi-country-name">Norway</td>
+                                                <td class="hdi-score" style="text-align: right;">0.961</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">3</td>
+                                                <td class="hdi-country-name">Iceland</td>
+                                                <td class="hdi-score" style="text-align: right;">0.959</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">4</td>
+                                                <td class="hdi-country-name">Denmark</td>
+                                                <td class="hdi-score" style="text-align: right;">0.952</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">5</td>
+                                                <td class="hdi-country-name">Finland</td>
+                                                <td class="hdi-score" style="text-align: right;">0.951</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">6</td>
+                                                <td class="hdi-country-name">Netherlands</td>
+                                                <td class="hdi-score" style="text-align: right;">0.948</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">7</td>
+                                                <td class="hdi-country-name">Belgium</td>
+                                                <td class="hdi-score" style="text-align: right;">0.947</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">8</td>
+                                                <td class="hdi-country-name">Australia</td>
+                                                <td class="hdi-score" style="text-align: right;">0.945</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">9</td>
+                                                <td class="hdi-country-name">Germany</td>
+                                                <td class="hdi-score" style="text-align: right;">0.944</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">10</td>
+                                                <td class="hdi-country-name">Sweden</td>
+                                                <td class="hdi-score" style="text-align: right;">0.941</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- BOTTOM 10 HDI COUNTRIES -->
+                        <div class="hdi-column bottom-hdi flex-grow-1">
+                            <h3 class="hdi-column-title bottom-hdi">Bottom 10 Countries</h3>
+                            <div class="hdi-ranking-table">
+                                <div class="hdi-table-wrapper">
+                                    <table class="hdi-table">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 50px;">Rank</th>
+                                                <th style="width: auto;">Country</th>
+                                                <th style="width: 80px; text-align: right;">HDI</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="hdi-rank-number">183</td>
+                                                <td class="hdi-country-name">Sierra Leone</td>
+                                                <td class="hdi-score" style="text-align: right;">0.438</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">184</td>
+                                                <td class="hdi-country-name">Chad</td>
+                                                <td class="hdi-score" style="text-align: right;">0.435</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">185</td>
+                                                <td class="hdi-country-name">Central African Republic</td>
+                                                <td class="hdi-score" style="text-align: right;">0.432</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">186</td>
+                                                <td class="hdi-country-name">Niger</td>
+                                                <td class="hdi-score" style="text-align: right;">0.385</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">187</td>
+                                                <td class="hdi-country-name">Burkina Faso</td>
+                                                <td class="hdi-score" style="text-align: right;">0.382</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">188</td>
+                                                <td class="hdi-country-name">Mali</td>
+                                                <td class="hdi-score" style="text-align: right;">0.350</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">189</td>
+                                                <td class="hdi-country-name">Mozambique</td>
+                                                <td class="hdi-score" style="text-align: right;">0.321</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">190</td>
+                                                <td class="hdi-country-name">South Sudan</td>
+                                                <td class="hdi-score" style="text-align: right;">0.308</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">191</td>
+                                                <td class="hdi-country-name">Yemen</td>
+                                                <td class="hdi-score" style="text-align: right;">0.296</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hdi-rank-number">192</td>
+                                                <td class="hdi-country-name">Niger (estimate)</td>
+                                                <td class="hdi-score" style="text-align: right;">0.291</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Section: Key Observations -->
+            <div class="row mt-5 mb-5 scroll-reveal">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="feature-title">What These Rankings Reveal</h2>
+                    <div class="feature-body">
+                        <p><strong>Geographic Concentration:</strong> The top HDI countries are primarily located in Western Europe, North America, and developed Asia-Pacific nations. These countries have strong economies, universal healthcare systems, high literacy rates, and advanced infrastructure.</p>
+                        <p><strong>The Bottom Tier:</strong> The lowest HDI countries are predominantly in Sub-Saharan Africa and parts of Asia. These nations face challenges including poverty, limited education access, health crises (including high maternal and child mortality), and inadequate infrastructure.</p>
+                        <p><strong>The Gap:</strong> There is a striking gap between the top (0.96+) and bottom (0.29-0.44) HDI scores. This 0.67-point difference reflects profound disparities in living standards, opportunities, and quality of life across the globe.</p>
+                        <p><strong>GDP vs. HDI:</strong> While economic output (GDP) contributes to HDI, it's not the only factor. Countries that have invested in education and healthcare despite limited resources sometimes achieve higher HDI rankings than their GDP alone would suggest.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insight Cards: Three Factor Analysis -->
+            <div class="row g-4 justify-content-center mb-5">
+                <!-- Card 1: Life Expectancy -->
+                <div class="col-md-6 col-lg-4">
+                    <article class="card topic-card h-100 p-4 border-0 shadow-sm rounded-4 bg-white scroll-reveal">
+                        <h3 class="text-theme-title text-theme-navy mb-3">Life Expectancy</h3>
+                        <p class="feature-body flex-grow-1" style="font-size: 0.95rem;">Top HDI countries average 80+ years life expectancy, while bottom-ranked countries average 50-60 years. This reflects major differences in healthcare, nutrition, and living conditions.</p>
+                    </article>
+                </div>
+
+                <!-- Card 2: Education Access -->
+                <div class="col-md-6 col-lg-4">
+                    <article class="card topic-card h-100 p-4 border-0 shadow-sm rounded-4 bg-white scroll-reveal" style="transition-delay: 0.08s;">
+                        <h3 class="text-theme-title text-theme-navy mb-3">Education Access</h3>
+                        <p class="feature-body flex-grow-1" style="font-size: 0.95rem;">High HDI nations have near-universal primary education and high tertiary enrollment. Low HDI countries struggle with school access, teacher shortages, and low completion rates.</p>
+                    </article>
+                </div>
+
+                <!-- Card 3: Economic Opportunity -->
+                <div class="col-md-6 col-lg-4">
+                    <article class="card topic-card h-100 p-4 border-0 shadow-sm rounded-4 bg-white scroll-reveal" style="transition-delay: 0.16s;">
+                        <h3 class="text-theme-title text-theme-navy mb-3">Economic Opportunity</h3>
+                        <p class="feature-body flex-grow-1" style="font-size: 0.95rem;">GNI per capita varies dramatically. High HDI countries have GNI of $40,000+ per capita, while low HDI countries average $700-2,000, limiting access to essentials.</p>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Conclusion -->
+            <div class="row mb-5 scroll-reveal">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="feature-title">Implications for Global Development</h2>
+                    <div class="feature-body">
+                        <p>The HDI rankings starkly illustrate the division between the Global North and Global South. While technology and globalization offer opportunities for development, many countries lack the foundational infrastructure, resources, and systems needed to progress rapidly.</p>
+                        <p>Addressing these disparities requires international cooperation, technology transfer, educational investment, healthcare strengthening, and equitable trade practices. The United Nations Sustainable Development Goals (SDGs) aim to narrow these gaps and ensure that all countries, regardless of current development level, can provide their citizens with quality education, healthcare, and economic opportunities.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer-section" id="about-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-7 mb-4 mb-md-0">
+                    <h3 class="footer-tagline">Exploring global inequalities, relations, and perspectives.</h3>
+                    <p class="footer-copyright mb-0">A project made for the subject GNED 07 - The Contemporary World submitted to Sir Paul John Estorninos</p>
+                </div>
+                <div class="col-md-1 d-none d-md-block text-center footer-separator-col">
+                    <div class="footer-separator"></div>
+                </div>
+                <div class="col-md-4 footer-links-container text-md-start text-center">
+                    <ul class="footer-links">
+                        <li><a href="../index.html" class="footer-link">Home</a></li>
+                        <li><a href="topics.html" class="footer-link active">Explore</a></li>
+                        <li><a href="../index.html#about-section" class="footer-link">About</a></li>
+                    </ul>
+                    <p class="footer-credit mb-0">Developed by Vanessa Andino, Endred Baido, Christina Gomba, Roselyn Llantos, Lorraine Ochoa, Vhina May Palomar, and Charles San Juan of BSCS-4B A.Y. 2025-2026</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/layout.js"></script>
+
+    <!-- Bootstrap 5 Bundle JS CDN (including Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- Custom Main JS script -->
+    <script src="../js/main.js"></script>
+</body>
+</html>
