@@ -299,6 +299,35 @@ body {
     position: relative;
 }
 
+.lesson-hero {
+    min-height: 62vh;
+    padding-top: 128px;
+    padding-bottom: 68px;
+}
+
+.lesson-hero .hero-title {
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: clamp(2.9rem, 6vw, 5rem);
+    line-height: 1.06;
+    text-wrap: balance;
+}
+
+.lesson-hero .hero-subtitle {
+    margin-bottom: 0;
+}
+
+.lesson-content {
+    padding-top: 82px;
+    padding-bottom: 72px;
+    overflow-x: hidden;
+}
+
+.lesson-content + .page-navigation {
+    padding-top: 38px;
+}
+
 .content-watermark {
     font-family: var(--font-subtitle);
     font-size: 1rem;
@@ -433,6 +462,27 @@ body {
     overflow: hidden;
     border-radius: 16px !important;
     transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.lesson-card-grid .topic-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 250px;
+}
+
+.lesson-card-grid .topic-card h3 {
+    min-height: 2.6em;
+    font-size: clamp(1.2rem, 1.8vw, 1.42rem);
+    line-height: 1.3;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+    text-wrap: balance;
+}
+
+.lesson-card-grid .topic-card .feature-body {
+    margin-bottom: 0;
+    line-height: 1.7;
 }
 
 .topic-card.scroll-reveal {
@@ -728,6 +778,17 @@ body {
         min-height: 80vh;
         background-size: cover; /* Adjust map sizing on mobile to fit beautifully */
     }
+
+    .lesson-hero {
+        min-height: 58vh;
+        padding-top: 118px;
+        padding-bottom: 60px;
+    }
+
+    .lesson-content {
+        padding-top: 68px;
+        padding-bottom: 58px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -806,9 +867,29 @@ body {
     .hero-content:hover .hero-divider {
         width: min(320px, 72vw);
     }
+    .hero-content {
+        width: 100%;
+        max-width: 100%;
+    }
+    .hero-divider {
+        width: min(320px, calc(100vw - 40px));
+        max-width: 100%;
+    }
+    .hero-subtitle {
+        max-width: calc(100vw - 40px);
+        margin-left: auto;
+        margin-right: auto;
+        font-size: clamp(1rem, 5.2vw, 1.4rem);
+        line-height: 1.45;
+        overflow-wrap: break-word;
+    }
     .hero-subtitle-typing {
         max-width: 100%;
         font-size: clamp(1.05rem, 6vw, 1.4rem);
+    }
+    .scroll-reveal-left,
+    .scroll-reveal-right {
+        transform: translateY(60px);
     }
     .scroll-to-top-button {
         right: 16px;
@@ -816,6 +897,31 @@ body {
         width: 46px;
         height: 46px;
         font-size: 1.15rem;
+    }
+    .lesson-hero {
+        min-height: 54vh;
+        padding-top: 104px;
+        padding-bottom: 54px;
+    }
+    .lesson-hero .hero-title {
+        max-width: calc(100vw - 40px);
+        font-size: clamp(1.95rem, 9.6vw, 3.4rem);
+        letter-spacing: 0;
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+    .lesson-content {
+        padding-top: 56px;
+        padding-bottom: 48px;
+    }
+    .lesson-card-grid {
+        --bs-gutter-y: 1.25rem;
+    }
+    .lesson-card-grid .topic-card {
+        min-height: auto;
+    }
+    .lesson-card-grid .topic-card h3 {
+        min-height: 0;
     }
     .page-navigation-inner {
         grid-template-columns: 1fr;
