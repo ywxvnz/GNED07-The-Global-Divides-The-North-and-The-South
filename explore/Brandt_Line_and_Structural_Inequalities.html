@@ -1,210 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brandt Line and Structural Inequalities - Global Divides</title>
     <!-- Bootstrap 5 CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Custom Style References -->
     <link rel="stylesheet" href="../css/index.css">
+    <style>
+        /* Dark Navy Layout for Brandt Line Page */
+        .brandt-content-section {
+            background: #2f3776;
+            color: #ffffff;
+            padding: 35px 0 40px;
+            position: relative;
+        }
+
+        .brandt-main-layout {
+            display: grid;
+            grid-template-columns: 260px 590px;
+            column-gap: 35px;
+            align-items: start;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .brandt-left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .brandt-title {
+            font-family: Georgia, serif;
+            font-size: 54px;
+            line-height: 0.95;
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+        }
+
+        .brandt-text-block {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1rem;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .brandt-text-block p {
+            margin: 0;
+        }
+
+        .brandt-arrow {
+            font-size: 3rem;
+            color: #D34E36;
+            line-height: 1;
+            margin: 15px 0;
+        }
+
+        .brandt-image-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .brandt-image-wrapper img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            display: block;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (max-width: 1024px) {
+            .brandt-main-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .brandt-image-wrapper {
+                min-height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .brandt-content-section {
+                padding: 60px 0;
+            }
+
+            .brandt-title {
+                font-size: 2rem;
+            }
+
+            .brandt-text-block {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
     <!-- Navigation Bar -->
-    <div class="navbar-glass-container">
-        <!-- <nav class="navbar navbar-expand-lg navbar-glass">
-            <div class="container-fluid justify-content-center">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
-                    <ul class="navbar-nav gap-2">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../index.html#about-section">About</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Explore
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="topics.html">Topics</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="../index.html">The Global Divides</a></li>
-                                <li><a class="dropdown-item" href="Conceptualizing_Global_South.html">Conceptualizing the Global South</a></li>
-                                <li><a class="dropdown-item" href="Third_World_versus_Global_South.html">Third World versus Global South</a></li>
-                                <li><a class="dropdown-item" href="The_North-South_Divide.html">The North-South Divide</a></li>
-                                <li><a class="dropdown-item" href="Top_Ten_and_Bottom_Ten_Countries_in_Terms_of_HDI_Rankings.html">Top Ten and Bottom Ten Countries in Terms of HDI Rankings</a></li>
-                                <li><a class="dropdown-item" href="Brandt_Line_and_Structural_Inequalities.html">Brandt Line and Structural Inequalities</a></li>
-                                <li><a class="dropdown-item" href="Major_Lenses_of_Global_Relations.html">Major Lenses of Global Relations</a></li>
-                                <li><a class="dropdown-item" href="Major_Lenses_of_International_Relations.html">Major Lenses of International Relations</a></li>
-                                <li><a class="dropdown-item" href="Conclusion.html">Conclusion</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+    <div data-site-header></div>
+
+    <!-- Main Content Section - Exact replica of Brandt Line reference screenshot -->
+    <main class="brandt-content-section" style="background: #2f3776; padding-top: 110px; padding-bottom: 40px;">
+        <style>
+            .brandt-main-layout {
+                width: 100%;
+                max-width: 1500px;
+                margin: 0 auto;
+                margin-top: 32px;
+                margin-left: 200px;
+                display: grid;
+                grid-template-columns: 500px 1000px;
+                column-gap: 15px;
+                align-items: start;
+                box-sizing: border-box;
+            }
+
+            .brandt-left {
+                color: #fff;
+                padding-top: 40px;
+                box-sizing: border-box;
+            }
+
+            .brandt-title {
+                font-family: Georgia, 'Times New Roman', serif;
+                font-size: 48px;
+                line-height: 0.95;
+                font-weight: 700;
+                color: #ffffff;
+                margin: 0 0 15px 0;
+                white-space: normal;
+            }
+
+            .brandt-divider {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                max-width: 450px;
+                margin: 12px 0 25px 0;
+                box-sizing: border-box;
+            }
+
+            .divider-line {
+                flex: 1;
+                height: 2px;
+                background: #ffffff;
+                display: block;
+            }
+
+            .divider-arrow {
+                color: #ffffff;
+                font-size: 20px;
+                margin-left: 12px;
+            }
+
+            .brandt-body {
+                width: 100%;
+                max-width: 500px;
+                font-size: 15px;
+                line-height: 1.65;
+                color: rgba(255, 255, 255, 0.95);
+                box-sizing: border-box;
+            }
+
+            .brandt-right {
+                width: 100%;
+                max-width: 850px;
+                box-sizing: border-box;
+            }
+
+            .brandt-image-wrapper {
+                margin-bottom: 18px;
+            }
+
+            .brandt-image-wrapper img {
+                width: 100%;
+                max-width: 850px;
+                height: auto;
+                display: block;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .small-notes {
+                width: 100%;
+                max-width: 850px;
+                font-size: 15px;
+                line-height: 1.55;
+                color: rgba(255, 255, 255, 0.95);
+                box-sizing: border-box;
+            }
+
+            .small-notes p {
+                margin: 0 0 8px 0;
+            }
+
+            .small-notes p:last-child {
+                margin-bottom: 0;
+            }
+
+            @media (max-width: 1199px) {
+                .brandt-main-layout {
+                    margin-left: 0;
+                    grid-template-columns: minmax(220px, 480px) minmax(420px, 1fr);
+                    column-gap: 24px;
+                    padding: 0 20px;
+                }
+
+                .brandt-divider {
+                    max-width: 380px;
+                }
+
+                .brandt-body {
+                    max-width: 480px;
+                }
+
+                .brandt-right {
+                    max-width: 100%;
+                }
+            }
+
+            @media (max-width: 991px) {
+                .brandt-main-layout {
+                    grid-template-columns: 1fr;
+                    column-gap: 20px;
+                    gap: 30px;
+                    padding: 0 18px;
+                }
+
+                .brandt-divider {
+                    max-width: 100%;
+                }
+
+                .brandt-body {
+                    max-width: 100%;
+                }
+
+                .brandt-image-wrapper {
+                    min-height: auto;
+                }
+            }
+
+            @media (max-width: 767px) {
+                .brandt-main-layout {
+                    padding: 0 16px;
+                    gap: 24px;
+                }
+
+                .brandt-title {
+                    font-size: 42px;
+                }
+
+                .brandt-divider {
+                    margin: 14px 0 22px 0;
+                }
+
+                .brandt-body,
+                .small-notes {
+                    font-size: 14px;
+                    line-height: 1.6;
+                }
+
+                .brandt-image-wrapper img {
+                    max-width: 100%;
+                }
+            }
+        </style>
+
+        <div class="brandt-main-layout">
+
+            <div class="brandt-left">
+                <h1 class="brandt-title">Brandt Line<br>and Structural<br>Inequalities</h1>
+
+                <div class="brandt-divider">
+                    <span class="divider-line"></span><span class="divider-arrow"></span>
+                </div>
+
+                <div class="brandt-body">TNCs from developing countries have become increasingly important in the 21st century. The top TNCs in 2007 came from developing countries such as China, India, Malaysia, Singapore, Korea, Philippines, Thailand, Brazil, Mexico, South Africa, and Turkey. These developing countries became major players in industries like cars, electronics, steel, and container shipping.</div>
+            </div>
+
+            <div class="brandt-right">
+                <div class="brandt-image-wrapper">
+                    <img src="../assets/images/brandtline.png" alt="Brandt Line Map showing Global North and Global South division">
+                </div>
+
+                <div class="small-notes">
+                    <p>These evolving conditions suggest that the conception of global South and global North should not be limited to conventional characterization but could be a representation of an emerging form.</p>
+                    <p>The Brandt Line shows that richer countries are mostly located in the Northern Hemisphere, while poorer countries are mostly located in tropical regions and in the Southern Hemisphere.</p>
                 </div>
             </div>
-        </nav> -->
-    </div>
 
-    <!-- Hero Section: Brandt Line Title -->
-    <header class="hero-section" style="min-height: 62vh;">
-        <div class="hero-overlay"></div>
-        <div class="hero-content scroll-reveal">
-            <h1 class="hero-title">BRANDT LINE</h1>
-            <div class="hero-divider"></div>
-            <p class="hero-subtitle">Structural Inequalities</p>
         </div>
-    </header>
 
-    <!-- Main Content Section -->
-    <main class="content-section">
-        <div class="container">
-            
-            <!-- Introduction Section -->
-            <div class="row mb-5 scroll-reveal">
-                <div class="col-lg-8 mx-auto">
-                    <h2 class="feature-title">What is the Brandt Line?</h2>
-                    <div class="feature-body">
-                        <p>The Brandt Line, named after economist Willy Brandt, is an imaginary line on a world map that divides the planet into two economically and socially disparate groups. Drawn roughly along the 30th parallel north, the Brandt Line separates the industrialized, wealthy nations of the Global North from the developing, poorer nations of the Global South.</p>
-                        <p>First introduced in the early 1980s, the Brandt Line concept represents a stark visual metaphor for global inequality. It is not a precise geographical boundary but rather a symbolic representation of the economic, technological, and infrastructural disparities that characterize North-South relations.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Two-Column Layout: Concept and Visual -->
-            <div class="row g-5 align-items-center mb-5">
-                <!-- Left Column: Text Explanation -->
-                <div class="col-lg-6 scroll-reveal-left">
-                    <h2 class="feature-title mb-4">The Division</h2>
-                    <div class="feature-body">
-                        <p><strong>The Global North</strong> (above the line) includes developed nations like the United States, Canada, Western Europe, Japan, Australia, and New Zealand. These countries are characterized by:</p>
-                        <ul class="feature-body" style="margin-left: 20px; margin-top: 12px;">
-                            <li>High levels of industrialization and technological advancement</li>
-                            <li>Advanced infrastructure and services</li>
-                            <li>Higher per capita income and quality of life</li>
-                            <li>Greater political and economic influence</li>
-                        </ul>
-                        <p style="margin-top: 16px;"><strong>The Global South</strong> (below the line) encompasses most of Africa, Latin America, Asia, and the Middle East. These regions face:</p>
-                        <ul class="feature-body" style="margin-left: 20px; margin-top: 12px;">
-                            <li>Limited industrialization and technology</li>
-                            <li>Under-developed infrastructure</li>
-                            <li>Lower per capita income and living standards</li>
-                            <li>Historical colonial legacies and external economic pressures</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Right Column: Brandt Line Map Image -->
-                <div class="col-lg-6 scroll-reveal-right">
-                    <div class="image-card-container" style="min-height: auto; padding: 16px;">
-                        <img src="../assets/images/brandtline.png" alt="Brandt Line Map showing Global North and Global South division" class="img-fluid" style="width: 100%; height: auto; object-fit: contain; border-radius: 20px; display: block;">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Structural Inequalities Cards Section -->
-            <div class="row mb-5">
-                <div class="col-lg-8 mx-auto">
-                    <h2 class="feature-title text-center mb-5 scroll-reveal">Structural Inequalities</h2>
-                </div>
-            </div>
-
-            <!-- Cards Grid: Structural Inequality Aspects -->
-            <div class="row g-4 justify-content-center mb-5">
-                <!-- Card 1: Economic Inequality -->
-                <div class="col-md-6 col-lg-4">
-                    <article class="card topic-card h-100 p-4 border-0 shadow-sm rounded-4 bg-white scroll-reveal">
-                        <h3 class="text-theme-title text-theme-navy mb-3">Economic Inequality</h3>
-                        <p class="feature-body flex-grow-1" style="font-size: 0.95rem;">The Global North controls the majority of global wealth and resources. Economic structures and trade systems favor developed nations, leaving the Global South dependent on raw material exports and facing unfavorable trade terms.</p>
-                    </article>
-                </div>
-
-                <!-- Card 2: Technological Gap -->
-                <div class="col-md-6 col-lg-4">
-                    <article class="card topic-card h-100 p-4 border-0 shadow-sm rounded-4 bg-white scroll-reveal" style="transition-delay: 0.08s;">
-                        <h3 class="text-theme-title text-theme-navy mb-3">Technological Gap</h3>
-                        <p class="feature-body flex-grow-1" style="font-size: 0.95rem;">The Global North maintains technological superiority in manufacturing, computing, biotechnology, and innovation. This gap perpetuates economic advantages and limits opportunities for the Global South to compete globally.</p>
-                    </article>
-                </div>
-
-                <!-- Card 3: Educational Disparity -->
-                <div class="col-md-6 col-lg-4">
-                    <article class="card topic-card h-100 p-4 border-0 shadow-sm rounded-4 bg-white scroll-reveal" style="transition-delay: 0.16s;">
-                        <h3 class="text-theme-title text-theme-navy mb-3">Educational Disparity</h3>
-                        <p class="feature-body flex-grow-1" style="font-size: 0.95rem;">Access to quality education and higher learning institutions is concentrated in the Global North. This creates a brain drain as skilled professionals from the South migrate northward for better opportunities.</p>
-                    </article>
-                </div>
-
-                <!-- Card 4: Political Power -->
-                <div class="col-md-6 col-lg-4">
-                    <article class="card topic-card h-100 p-4 border-0 shadow-sm rounded-4 bg-white scroll-reveal">
-                        <h3 class="text-theme-title text-theme-navy mb-3">Political Power</h3>
-                        <p class="feature-body flex-grow-1" style="font-size: 0.95rem;">The Global North dominates international institutions and decision-making bodies like the UN, IMF, and World Bank. This power imbalance influences global policies and development priorities.</p>
-                    </article>
-                </div>
-
-                <!-- Card 5: Healthcare & Infrastructure -->
-                <div class="col-md-6 col-lg-4">
-                    <article class="card topic-card h-100 p-4 border-0 shadow-sm rounded-4 bg-white scroll-reveal" style="transition-delay: 0.08s;">
-                        <h3 class="text-theme-title text-theme-navy mb-3">Healthcare & Infrastructure</h3>
-                        <p class="feature-body flex-grow-1" style="font-size: 0.95rem;">The Global South often lacks adequate healthcare systems, clean water access, and reliable infrastructure. These structural deficits limit human development and economic growth potential.</p>
-                    </article>
-                </div>
-
-                <!-- Card 6: Historical Colonial Legacy -->
-                <div class="col-md-6 col-lg-4">
-                    <article class="card topic-card h-100 p-4 border-0 shadow-sm rounded-4 bg-white scroll-reveal" style="transition-delay: 0.16s;">
-                        <h3 class="text-theme-title text-theme-navy mb-3">Colonial Legacy</h3>
-                        <p class="feature-body flex-grow-1" style="font-size: 0.95rem;">Many Global South nations were colonized, exploited for resources, and structured to serve colonial interests. These historical injustices continue to shape current inequalities and economic structures.</p>
-                    </article>
-                </div>
-            </div>
-
-            <!-- Conclusion Section -->
-            <div class="row mb-5 scroll-reveal">
-                <div class="col-lg-8 mx-auto">
-                    <h2 class="feature-title">Beyond the Brandt Line</h2>
-                    <div class="feature-body">
-                        <p>While the Brandt Line provides a useful conceptual framework for understanding global inequality, it is important to recognize that it is a simplification. Inequality exists within nations as well as between them. Some countries in the Global South have achieved significant development, while some regions in the Global North face economic challenges.</p>
-                        <p>However, the Brandt Line remains relevant as a powerful reminder of the persistent structural inequalities that characterize our world. Addressing these inequalities requires not only economic policies but also political will, international cooperation, and a commitment to global justice and equitable development for all nations.</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
     </main>
 
-    <!-- Footer Section -->
-    <footer class="footer-section" id="about-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-7 mb-4 mb-md-0">
-                    <h3 class="footer-tagline">Exploring global inequalities, relations, and perspectives.</h3>
-                    <p class="footer-copyright mb-0">A project made for the subject GNED 07 - The Contemporary World submitted to Sir Paul John Estorninos</p>
-                </div>
-                <div class="col-md-1 d-none d-md-block text-center footer-separator-col">
-                    <div class="footer-separator"></div>
-                </div>
-                <div class="col-md-4 footer-links-container text-md-start text-center">
-                    <ul class="footer-links">
-                        <li><a href="../index.html" class="footer-link">Home</a></li>
-                        <li><a href="topics.html" class="footer-link active">Explore</a></li>
-                        <li><a href="../index.html#about-section" class="footer-link">About</a></li>
-                    </ul>
-                    <p class="footer-credit mb-0">Developed by Vanessa Andino, Endred Baido, Christina Gomba, Roselyn Llantos, Lorraine Ochoa, Vhina May Palomar, and Charles San Juan of BSCS-4B A.Y. 2025-2026</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <div data-site-footer></div>
 
     <script src="../js/layout.js"></script>
 
     <!-- Bootstrap 5 Bundle JS CDN (including Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
     <!-- Custom Main JS script -->
     <script src="../js/main.js"></script>
 </body>
+
 </html>
