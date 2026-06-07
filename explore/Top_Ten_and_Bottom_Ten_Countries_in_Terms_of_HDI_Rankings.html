@@ -112,6 +112,98 @@
             margin-left: 0px;
         }
 
+        .table-responsive {
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+
+        .table-responsive .hdi-table {
+            min-width: 320px;
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .globe-wrapper {
+            width: 100%;
+            max-width: 550px;
+            height: auto;
+            display: block;
+        }
+
+        @media (max-width: 1200px) {
+            .hdi-slide {
+                padding: 40px 28px 30px;
+            }
+
+            .hdi-canvas {
+                gap: 24px;
+            }
+
+            .hdi-table th,
+            .hdi-table td {
+                padding: 5px 8px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hdi-slide {
+                padding-top: 90px;
+            }
+
+            .hdi-canvas {
+                flex-direction: column;
+                gap: 28px;
+            }
+
+            .slide-left,
+            .slide-right {
+                width: 100%;
+            }
+
+            .slide-right .lead,
+            .left-paragraphs {
+                width: 100%;
+            }
+
+            .slide-right h1 {
+                font-size: 42px;
+            }
+
+            .globe-wrapper {
+                width: 100%;
+                max-width: 520px;
+                margin: 32px auto 0;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hdi-slide {
+                padding: 30px 18px 24px;
+            }
+
+            .slide-right h1 {
+                font-size: 34px;
+                line-height: 1.1;
+            }
+
+            .hdi-table th,
+            .hdi-table td {
+                font-size: 12px;
+                padding: 5px 6px;
+            }
+
+            .slide-right .lead,
+            .left-paragraphs p {
+                font-size: 14px;
+                line-height: 1.45;
+            }
+
+            .hdi-table {
+                min-width: 280px;
+            }
+        }
+
         
         /* @media (min-width: 1800px) {
             .hdi-canvas {
@@ -141,15 +233,18 @@
 
             .slide-left {
                 width: 45%;
+                order: 1;
             }
 
             .slide-right {
                 width: 55%;
+                order: 2;
             }
 
             /* Table styled to match the screenshot: thin blue borders, compact rows, small text */
             .hdi-table {
-                width: 520px;
+                width: 100%;
+                max-width: 520px;
                 border-collapse: collapse;
                 font-family: Arial, Helvetica, sans-serif;
                 font-size: 12px;
@@ -221,6 +316,14 @@
                     width: 100%;
                 }
 
+                .slide-right {
+                    order: 1;
+                }
+
+                .slide-left {
+                    order: 2;
+                }
+
                 .slide-right .lead {
                     width: 100%;
                 }
@@ -229,16 +332,31 @@
 
         <div class="hdi-canvas">
 
+            <div class="slide-right">
+
+                <h1>Top Ten and Bottom Ten Countries
+                    in Terms of HDI Rankings</h1>
+
+                <p class="lead">The concept of "North-South divide" explains that the "global North" is where industrial
+                    development is concentrated while the "global South" is where poverty and disadvantage exist.
+                    Structural inequalities between the industrialized North and the low-wage, low-investment rural
+                    South are linked to aid, developing world debt, and the practices of TNCs.</p>
+
+                <img class="globe-wrapper" src="../assets/images/illus1.png" alt="Globe illustration" />
+
+            </div>
+
             <div class="slide-left">
 
-                <table class="hdi-table" aria-describedby="hdi-source">
-                    <thead>
-                        <tr>
-                            <th>TOP</th>
-                            <th>BOTTOM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div class="table-responsive">
+                    <table class="hdi-table" aria-describedby="hdi-source">
+                        <thead>
+                            <tr>
+                                <th>TOP</th>
+                                <th>BOTTOM</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         <tr>
                             <td>1. Norway</td>
                             <td>1. Mali</td>
@@ -281,6 +399,7 @@
                         </tr>
                     </tbody>
                 </table>
+                </div>
 
                 <div id="hdi-source" class="table-caption">(UN Human Development Report 2010)</div>
 
@@ -293,20 +412,6 @@
                     <p>The report also emphasized that the prosperity of the North is dependent on the development of
                         the South.</p>
                 </div>
-
-            </div>
-
-            <div class="slide-right">
-
-                <h1>Top Ten and Bottom Ten Countries
-                    in Terms of HDI Rankings</h1>
-
-                <p class="lead">The concept of "North-South divide" explains that the "global North" is where industrial
-                    development is concentrated while the "global South" is where poverty and disadvantage exist.
-                    Structural inequalities between the industrialized North and the low-wage, low-investment rural
-                    South are linked to aid, developing world debt, and the practices of TNCs.</p>
-
-                <img class="globe-wrapper" src="../assets/images/illus1.png" alt="Globe illustration" />
 
             </div>
 
