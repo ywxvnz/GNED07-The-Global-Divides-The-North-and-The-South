@@ -220,7 +220,7 @@ function renderSiteFooter(rootPath, isHomePage, isExplorePage) {
                             <li><a href="${rootPath}explore/topics.html" class="footer-link ${isExplorePage ? 'active' : ''}">Explore</a></li>
                             <li><a href="${rootPath}index.html#about-section" class="footer-link">About</a></li>
                         </ul>
-                        <p class="footer-credit mb-0">Developed by Vanessa Andino, Endred Baido, Christina Gomba, Roselyn Llantos, Lorraine Ochoa, Vhina May Palomar, and Charles San Juan of BSCS-4B A.Y. 2025-2026</p>
+                        <p class="footer-credit mb-0">Developed by Vanessa Andino, Vhina May Palomar, Lorraine Ochoa, Roselyn Llantos, Christina Gomba, Charles San Juan, and Endred Baido of BSCS-4B A.Y. 2025-2026</p>
                     </div>
                 </div>
             </div>
